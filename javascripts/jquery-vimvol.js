@@ -3,16 +3,17 @@
   $.fn.vimvol = function(options) {
       var settings = $.extend({
           current:  0.5,
-          steps:    6,
-          el:       'body'
+          steps:    12
       }, options);
 
       return this.each( function() {
-        var $this = $(this),
+        var $this = $(this).css({'visibility': 'hidden', 'height': 0, 'width': 0}),
             $spinner,
             $body = $('body'),
-            steps = settings.steps,
-            el = settings.el;
+            steps = $this.attr('max') || settings.steps,
+            el = $('<span>').appendTo($this.parent());
+
+        $this = $this.detach().appendTo(el);
 
         function init() {
           $slider = $("<div class='vslider'><div class='vslider_bar'></div><ul class='vslider_sticks'></div>").appendTo(el);
@@ -55,6 +56,7 @@
           for(var i = 0; i < index; i++) {
             $('.vslider_sticks > li:eq(' + i + ')').find('div').css('opacity', 1);
           }
+          $this.val(percent).change();
         };
     
         function getPercent(event) {
