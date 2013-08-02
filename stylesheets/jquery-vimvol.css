@@ -1,8 +1,8 @@
-.vslider {
+.vimvol {
   position: relative;
-  display: inline-block;
-  height: 36px;
-  
+  display: block;
+  height: 100%;
+
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -10,19 +10,16 @@
   -ms-user-select: none;
   user-select: none;
 }
-.vslider_sticks {
+.vimvol_sticks {
   position: relative;
-  width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  display: block;
+  display: inline-block;
 }
-.vslider_sticks > li {
+.vimvol_sticks > li {
   position: relative;
   text-indent: -99999px;
-  width: 5px;
-  margin-right: 3px;
   height: 90%;
   top: 10%;
   float: left;
@@ -35,20 +32,21 @@
   -o-transition: height 60ms ease-out, top 60ms ease-out;
   transition: height 60ms ease-out, top 60ms ease-out;
 }
-.vslider_sticks > li:last-child {
+.vimvol_sticks > li:last-child {
   margin-right: 0;
 }
-.vslider_sticks > li.active {
+.vimvol_sticks > li.active {
   height: 100%;
   top: 0;
 }
-.vslider_stick {
+.vimvol_stick {
   width: 100%;
   height: 100%;
   position: relative;
+  display: block;
   top: 0;
   left: 0;
-  background: #d41700;
+  background: $primary-color;
   opacity: 1;
   
   -webkit-transition: opacity 50ms ease-out;

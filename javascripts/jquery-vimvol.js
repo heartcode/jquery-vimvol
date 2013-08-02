@@ -2,24 +2,44 @@
 
   $.fn.vimvol = function(options) {
       var settings = $.extend({
-          current:  0.5,
-          steps:    12
+          class:        'vimvol',
+          current:      0.5,
+          steps:        12,
+          height:       '26px',
+          stickWidth:   '5px',
+          stickPadding: '3px',
+          stickColor:   '#0099ff'
       }, options);
 
       return this.each( function() {
-        var $this = $(this).css({'visibility': 'hidden', 'height': 0, 'width': 0}),
-            $spinner,
+        var $this = $(this).css({
+              'visible': 'hidden',
+              'display': 'none',
+              'width': 0,
+              'height': 0
+            }),
             $body = $('body'),
             steps = $this.attr('max') || settings.steps,
-            el = $('<span>').appendTo($this.parent());
+            value = $this.attr('value') || settings.current,
+            $el = $('<span>').appendTo($this.parent()).addClass(settings.class);
 
-        $this = $this.detach().appendTo(el);
+        $this = $this.detach().appendTo($el);
+
+        $el.height(settings.height);
 
         function init() {
-          $slider = $("<div class='vslider'><div class='vslider_bar'></div><ul class='vslider_sticks'></div>").appendTo(el);
+          $slider = $("<span class='vimvol'><ul class='vimvol_sticks'></ul></span>").appendTo($el);
 
           for (var i = 0; i < steps; i++) {
-            var $stick = $('<li><div class="vslider_stick"a></div></li>').appendTo($slider.find('.vslider_sticks'));
+            var $stick = $('<li><span class="vimvol_stick"></span></li>').appendTo($slider.find('.vimvol_sticks'));
+
+            $stick.width(settings.stickWidth);
+            $stick.find('.vimvol_stick').css('background-color', settings.stickColor);
+
+            if(i < steps - 1) {
+              $stick.css('margin-right', settings.stickPadding);
+            }
+
             $stick.on('mouseenter', function(){
               $(this).addClass('active');
             }).on('mouseleave', function(){
@@ -27,7 +47,7 @@
             });
           }
 
-          renderUI(settings.current);
+          renderUI(value / steps);
           $slider.on('mousedown', startDrag);
         };
 
@@ -51,16 +71,16 @@
           var index = Math.round(percent * steps);
           index = index < steps ? index : steps;
           
-          $('.vslider_sticks > li').find('div').css('opacity', 0);
+          $el.find('.vimvol_stick').css('opacity', 0);
 
           for(var i = 0; i < index; i++) {
-            $('.vslider_sticks > li:eq(' + i + ')').find('div').css('opacity', 1);
+            $el.find('.vimvol_stick:eq(' + i + ')').css('opacity', 1);
           }
-          $this.val(percent).change();
+          $this.val(percent * steps).change();
         };
     
         function getPercent(event) {
-          var percent = (event.pageX - $slider.offset().left) / $('.vslider_sticks').width();
+          var percent = (event.pageX - $slider.offset().left) / $('.vimvol_sticks').width();
           percent = percent >= 0 ? percent : 0;
           percent = percent <= 1 ? percent : 1;
           return percent;
