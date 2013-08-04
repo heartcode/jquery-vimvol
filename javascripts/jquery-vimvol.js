@@ -16,7 +16,7 @@
         var $this = $(this),
             $body = $('body'),
             steps = $this.attr('max') || settings.steps,
-            value = $this.attr('value') || settings.value,
+            value = settings.volume || $this.attr('value') / steps || settings.value / steps,
             $el = $('<span>').appendTo($this.parent()).addClass(settings.class);
 
         $this = $this.detach().appendTo($el);
@@ -49,7 +49,7 @@
           }
 
           hideInput();
-          renderUI(value / steps);
+          renderUI(value);
           $slider.on('mousedown', startDrag);
         };
 

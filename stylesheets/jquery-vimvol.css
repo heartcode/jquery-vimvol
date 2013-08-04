@@ -13,6 +13,7 @@
 .vimvol_sticks {
   position: relative;
   height: 100%;
+  overflow: hidden;
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -20,8 +21,8 @@
 .vimvol_sticks > li {
   position: relative;
   text-indent: -99999px;
-  height: 90%;
-  top: 10%;
+  height: 200%;
+  top: 8%;
   float: left;
   display: inline-block;
   background: rgba(0, 0, 0, 0.1);
@@ -36,7 +37,6 @@
   margin-right: 0;
 }
 .vimvol_sticks > li.active {
-  height: 100%;
   top: 0;
 }
 .vimvol_stick {

@@ -7,18 +7,36 @@
   body {
     background: #efefef;
   }
+  .container {
+    position: absolute;
+    margin: 0 auto;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    margin-top: -7px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px 0;
+  }
   </style>
 </head>
 <body>
-
-<input id="vslider" type="range" min="0" max="6" value="4" step="1" />
+<div class="container">
+  <input id="vslider" type="range" min="0" max="10" value="4" step="1" />
+</div>
 
 <script src="javascripts/jquery-1.10.2.js"></script>
 <script src="javascripts/jquery-vimvol.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     var slider = $('#vslider').vimvol({
-      inactiveColor: 'rgba(0, 0, 0, 0.3)'
+      height: '30px',
+      stickWidth: '6px',
+      stickPadding: '3px',
+      activeColor: '#d41700',
+      inactiveColor: 'rgba(0, 0, 0, 0.1)'
     });
 
     // Handle the volume slider dragging by hooking onto the input
@@ -26,6 +44,8 @@
     $('#vslider').on('change', function(e){
       console.log('New volume value: ' + e.currentTarget.value);
     });
+
+    $('.container').css('margin-left', $('.container').width() * -0.5);
   });
 </script>
 </body>
