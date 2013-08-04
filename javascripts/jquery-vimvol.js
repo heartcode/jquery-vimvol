@@ -85,15 +85,18 @@
           return percent;
         };
 
-        function renderUI(percent) {
-          var index = Math.round(percent * steps);
-          index = index < steps ? index : steps;
-          
-          $el.find('.vimvol_stick').css('opacity', 0);
+        function renderUI(percent) {          
+          var filledItems = Math.floor(percent * steps),
+              currentItemIndex = parseInt(percent * steps),
+              currentItemWidth = ((percent * steps) - Math.floor(percent * steps)) * 100 + '%';
 
-          for(var i = 0; i < index; i++) {
-            $el.find('.vimvol_stick:eq(' + i + ')').css('opacity', 1);
+          $el.find('.vimvol_stick').css('width', 0);
+
+          for(var i = 0; i < filledItems; i++) {
+            $el.find('.vimvol_stick:eq(' + i + ')').css('width', '100%');
           }
+
+          $el.find('.vimvol_stick:eq(' + currentItemIndex + ')').css('width', currentItemWidth);
 
           $this.val(percent).change();
         };

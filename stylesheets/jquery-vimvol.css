@@ -9,6 +9,8 @@
   -moz-user-select: moz-none;
   -ms-user-select: none;
   user-select: none;
+
+  -webkit-transform: transform3d(0, 0, 0);
 }
 .vimvol_sticks {
   position: relative;
@@ -49,9 +51,9 @@
   background: $primary-color;
   opacity: 1;
   
-  -webkit-transition: opacity 50ms ease-out;
-  -moz-transition: opacity 50ms ease-out;
-  -o-transition: opacity 50ms ease-out;
-  -ms-transition: opacity 50ms ease-out;
-  transition: opacity 50ms ease-out;
+  -webkit-transition: opacity 80ms ease-out;
+  -moz-transition: opacity 80ms ease-out;
+  -o-transition: opacity 80ms ease-out;
+  -ms-transition: opacity 80ms ease-out;
+  transition: opacity 80ms ease-out;
 }
