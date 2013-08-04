@@ -3,27 +3,27 @@
   $.fn.vimvol = function(options) {
       var settings = $.extend({
           class:        'vimvol',
-          current:      0.5,
+          value:        0.5,
           steps:        12,
           height:       '26px',
           stickWidth:   '5px',
           stickPadding: '3px',
-          stickColor:   '#0099ff'
+          activeColor:   'rgba(26, 183, 234, 1)',
+          inactiveColor: 'rgba(255, 255, 255, 0.3)'
       }, options);
 
       return this.each( function() {
-        var $this = $(this).css({
-              'visible': 'hidden',
-              'display': 'none',
-              'width': 0,
-              'height': 0
-            }),
+        var $this = $(this),
             $body = $('body'),
             steps = $this.attr('max') || settings.steps,
-            value = $this.attr('value') || settings.current,
+            value = $this.attr('value') || settings.value,
             $el = $('<span>').appendTo($this.parent()).addClass(settings.class);
 
         $this = $this.detach().appendTo($el);
+        // Resets the min/max/value attributes, so that the output
+        // will make sense when used as a volume control
+        $this.attr('max', 1);
+        $this.attr('step', $this.attr('max')/steps);
 
         $el.height(settings.height);
 
@@ -34,7 +34,8 @@
             var $stick = $('<li><span class="vimvol_stick"></span></li>').appendTo($slider.find('.vimvol_sticks'));
 
             $stick.width(settings.stickWidth);
-            $stick.find('.vimvol_stick').css('background-color', settings.stickColor);
+            $stick.css('background-color', settings.inactiveColor);
+            $stick.find('.vimvol_stick').css('background-color', settings.activeColor);
 
             if(i < steps - 1) {
               $stick.css('margin-right', settings.stickPadding);
@@ -47,8 +48,18 @@
             });
           }
 
+          hideInput();
           renderUI(value / steps);
           $slider.on('mousedown', startDrag);
+        };
+
+        function hideInput() {
+          $this.css({
+            position:     'absolute',
+            visibility:   'hidden',
+            width:        0,
+            height:       0
+          });
         };
 
         function startDrag(event) {
@@ -66,6 +77,13 @@
           $body.off('mouseup', stopDrag);
           $body.off('mousemove', onDrag);
         };
+    
+        function getPercent(event) {
+          var percent = (event.pageX - $slider.offset().left) / $('.vimvol_sticks').width();
+          percent = percent >= 0 ? percent : 0;
+          percent = percent <= 1 ? percent : 1;
+          return percent;
+        };
 
         function renderUI(percent) {
           var index = Math.round(percent * steps);
@@ -76,14 +94,8 @@
           for(var i = 0; i < index; i++) {
             $el.find('.vimvol_stick:eq(' + i + ')').css('opacity', 1);
           }
-          $this.val(percent * steps).change();
-        };
-    
-        function getPercent(event) {
-          var percent = (event.pageX - $slider.offset().left) / $('.vimvol_sticks').width();
-          percent = percent >= 0 ? percent : 0;
-          percent = percent <= 1 ? percent : 1;
-          return percent;
+
+          $this.val(percent).change();
         };
 
         init();

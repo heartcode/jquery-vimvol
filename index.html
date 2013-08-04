@@ -3,6 +3,11 @@
 <head>
   <title>VimVol demo</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/jquery-vimvol.css"></link>
+  <style>
+  body {
+    background: #efefef;
+  }
+  </style>
 </head>
 <body>
 
@@ -12,7 +17,9 @@
 <script src="javascripts/jquery-vimvol.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    var slider = $('#vslider').vimvol();
+    var slider = $('#vslider').vimvol({
+      inactiveColor: 'rgba(0, 0, 0, 0.3)'
+    });
 
     // Handle the volume slider dragging by hooking onto the input
     // element's native change event
