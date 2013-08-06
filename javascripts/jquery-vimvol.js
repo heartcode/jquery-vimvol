@@ -16,7 +16,7 @@
         var $this = $(this),
             $body = $('body'),
             steps = $this.attr('max') || settings.steps,
-            value = settings.volume || $this.attr('value') / steps || settings.value / steps,
+            value = settings.volume.toString() || $this.attr('value') / steps || settings.value / steps,
             $el = $('<span>').appendTo($this.parent()).addClass(settings.class);
 
         $this = $this.detach().appendTo($el);
