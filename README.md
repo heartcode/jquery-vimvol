@@ -1,4 +1,4 @@
-##Vimvol
+## Vimvol
 
 Vimvol is a cheeky jQuery plugin, which makes is super easy to create a Vimeo-like volume slider controllers for JavaScript based video players.
 
@@ -7,7 +7,7 @@ Vimvol is a cheeky jQuery plugin, which makes is super easy to create a Vimeo-li
 
 <br>
 
-##An early code example:
+## An early code example:
 	<input id="vslider" type="range" min="0" max="10" value="4" step="1" />
 	<script src="javascripts/jquery-1.10.2.js"></script>
 	<script src="javascripts/jquery-vimvol.js"></script>
@@ -31,7 +31,7 @@ Vimvol is a cheeky jQuery plugin, which makes is super easy to create a Vimeo-li
     
 Have a look at the plugin code and the `index.html` to get a better idea.
 
-##Licenced under the MIT licence
+## Licenced under the MIT licence
 <br>
 Copyright (C) 2013 Robert Pataki (robert@robertpataki.com)
 
